@@ -1,0 +1,32 @@
+# Ignorar diretórios do sistema e arquivos pessoais
+/Ambiente de Impressão/
+/Ambiente de Rede/
+/Configurações Locais/
+/Cookies/
+/Meus Documentos/
+/Modelos/
+/Recent/
+/SendTo/
+/Documents/
+/Downloads/
+/Favorites/
+/Music/
+/Pictures/
+/Videos/
+/AppData/
+
+# Ignorar arquivos de cache e de configuração de ambientes
+/.cache/
+/.venv/
+/.docker/
+/.vscode/
+/.streamlit/
+/.gitconfig
+/node_modules/
+
+# Ignorar arquivos de log e binários
+*.log
+*.dll
+*.exe
+*.pdb
+*.config
