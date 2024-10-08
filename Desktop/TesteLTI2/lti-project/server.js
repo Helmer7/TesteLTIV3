@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 
 
 app.post('/lti', (req, res) => {
-    console.log('Requisição recebida:', req.body);
+    console.log('Requisição recebida:', JSON.stringify(req.body, null, 2));  
 
     
     const username = req.body['User.username'] || req.body.username;
