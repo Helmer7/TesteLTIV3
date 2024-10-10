@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');  // Importa Axios para chamadas de API
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -39,7 +40,7 @@ app.get('/', (req, res) => {
     `);
 });
 
-app.post('/lti', (req, res) => {
+app.post('/lti', async (req, res) => {
     console.log('Requisição recebida:', JSON.stringify(req.body, null, 2));  
     
     const username = req.body['User.username'] || req.body.username;
@@ -48,7 +49,6 @@ app.post('/lti', (req, res) => {
 
     if (!username || !course || !startDate) {
         console.log("Erro: Dados insuficientes");
-        
         
         return res.send(`
             <html lang="pt-BR">
@@ -73,26 +73,40 @@ app.post('/lti', (req, res) => {
         `);
     }
 
-    
-    console.log(`LTI recebido: Aluno: ${username}, Curso: ${course}, Início: ${startDate}`);
-    res.send(`
-        <html lang="pt-BR">
-        <head>
-            <title>Sucesso LTI</title>
-            <style>
-                body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-                h1 { color: green; }
-                p { color: #333; font-size: 16px; }
-            </style>
-        </head>
-        <body>
-            <h1>LTI lançado com sucesso!</h1>
-            <p>Aluno: <strong>${username}</strong></p>
-            <p>Curso: <strong>${course}</strong></p>
-            <p>Data de Início: <strong>${startDate}</strong></p>
-        </body>
-        </html>
-    `);
+    try {
+        // Exemplo de requisição para a API externa para obter mais informações
+        const apiResponse = await axios.get(`https://sua-api.com/api/v1/nead/alunos/${username}`, {
+            headers: { 'Authorization': 'Bearer SEU_TOKEN_DE_ACESSO' }
+        });
+
+        const alunoInfo = apiResponse.data;
+
+        console.log(`Dados do aluno recebidos da API: ${JSON.stringify(alunoInfo, null, 2)}`);
+
+        // Renderiza a página com os dados recebidos
+        res.send(`
+            <html lang="pt-BR">
+            <head>
+                <title>Sucesso LTI</title>
+                <style>
+                    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+                    h1 { color: green; }
+                    p { color: #333; font-size: 16px; }
+                </style>
+            </head>
+            <body>
+                <h1>LTI lançado com sucesso!</h1>
+                <p>Aluno: <strong>${alunoInfo.nome}</strong></p>
+                <p>Curso: <strong>${course}</strong></p>
+                <p>Data de Início: <strong>${startDate}</strong></p>
+                <p>Dados adicionais do aluno: ${alunoInfo.detalhes}</p>
+            </body>
+            </html>
+        `);
+    } catch (error) {
+        console.error('Erro ao buscar informações adicionais do aluno:', error);
+        res.status(500).send("Erro ao processar a requisição.");
+    }
 });
 
 app.listen(port, () => {
