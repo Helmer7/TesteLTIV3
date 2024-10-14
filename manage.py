@@ -21,5 +21,6 @@ def main():
 if __name__ == '__main__':
     main()
 
-# Final do manage.py
-app = application  
+# Adicionando handler para o Vercel
+from django.core.wsgi import get_wsgi_application
+app = get_wsgi_application()
