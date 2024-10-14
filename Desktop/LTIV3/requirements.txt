@@ -1,9 +1,0 @@
-Django
-pylti1p3[django]
-requests
-PyJWT
-cryptography
-gunicorn           # For deploying with Gunicorn
-loguru
-python-logstash
-django-csp
