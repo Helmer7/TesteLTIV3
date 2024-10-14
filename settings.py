@@ -21,8 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Adicione aqui seu app LTI, por exemplo:
-    'lti_tool',
+    'teste-lt-iv3.vercel.app',
 ]
 
 # Middleware
