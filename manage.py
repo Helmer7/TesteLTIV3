@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+from django.core.wsgi import get_wsgi_application
 
 def main():
     """Run administrative tasks."""
@@ -22,5 +22,4 @@ if __name__ == '__main__':
     main()
 
 # Adicionando handler para o Vercel
-from django.core.wsgi import get_wsgi_application
-app = get_wsgi_application()
+application = get_wsgi_application()
