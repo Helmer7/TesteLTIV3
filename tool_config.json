@@ -1,0 +1,12 @@
+{
+    "https://fecaf.brightspace.com": {
+        "client_id": "262de088-6a06-46ed-8435-8dcaa328b16c",
+        "auth_login_url": "https://fecaf.brightspace.com/d2l/lti/authenticate",
+        "auth_token_url": "https://auth.brightspace.com/core/connect/token",
+        "key_set_url": "https://fecaf.brightspace.com/d2l/.well-known/jwks",
+        "issuer": "https://fecaf.brightspace.com",
+        "deployment_ids": ["8d510083-f1e2-4602-a95b-c13eceda9f77"],
+        "private_key_file": "/app/private_key.pem",
+        "public_key_file": "/app/public_key.pem"
+    }
+}
